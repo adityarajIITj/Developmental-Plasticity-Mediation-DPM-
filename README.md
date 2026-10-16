@@ -1,18 +1,14 @@
 # Developmental Plasticity Mediation (DPM)
 
-**A research project on history-conditioned learning and functional affect in artificial systems.**
+**Research scaffold for a causal-explanatory framework of functional affect in artificial systems.**
 
-Developmental Plasticity Mediation (DPM) is a candidate causal-organizational framework for studying functional affect. It describes a history-conditioned internal mediator whose intervention changes how later evidence is acquired, retained, extinguished, or transferred into learned significance.
-
-DPM is a research hypothesis and explanatory framework, not a claim that a new computational primitive has been discovered. Its distinct explanatory value must be tested against strong adaptive-control and meta-learning baselines. No result in this repository, by itself, establishes subjective feeling or phenomenal valence.
+DPM proposes studying whether a history-conditioned mediator changes how later evidence updates learned significance. The repository is currently an initial project scaffold; it does not yet contain a complete implementation or experimental results.
 
 ## Research question
 
-Can a history-conditioned mediator explain and predict changes in how an artificial system learns from later evidence, beyond what is explained by persistent internal state or a strong generic adaptive controller?
+Can a history-conditioned mediator explain and predict changes in how an artificial system learns from later evidence, beyond persistent-state adaptive control and strong generic meta-learning baselines?
 
-## Conceptual model
-
-The paper uses the following conceptual schema:
+## Conceptual schema
 
 `P_{t+1} = H(P_t, J_{t+1}, B_t, Z_t, C_t)`
 
@@ -20,62 +16,73 @@ The paper uses the following conceptual schema:
 
 `A_t \sim \pi(\cdot \mid B_t, Z_t, P_t, C_t)`
 
-Where:
+- `P`: history-conditioned plasticity/development mediator.
+- `Z`: learned significance.
+- `B`: explicit belief.
+- `J`: episode/history input.
+- `ε`: learning evidence; not assumed to be a temporal-difference error.
+- `C`: context.
+- `A`: action.
 
-- `P` is a history-conditioned plasticity/development mediator.
-- `Z` is learned significance.
-- `B` is explicit belief.
-- `J` is episode/history input.
-- `ε` is learning evidence; it is not assumed to be a temporal-difference error.
-- `C` is context.
-- `A` is action.
+These equations are a conceptual schema, not an executable algorithm. Implementation details must be specified before experiments are treated as confirmatory.
 
-These equations are a conceptual schema, not an executable algorithm. A concrete implementation must define its update rules, state spaces, intervention semantics, and evaluation protocol.
+## Initial technology choices
 
-## Planned discriminating study
+- **C++20** for the native research core.
+- **CMake** for portable builds.
+- **CTest** for the initial native test target.
+- Python may be added later for statistical analysis and visualization; it is not the core engine.
 
-The proposed **Plasticity Clamp and Transfer Test** compares:
+## Proposed study
 
+The planned Plasticity Clamp and Transfer Test compares:
 1. A persistent-state adaptive controller.
 2. An evaluative-decoupling variant.
-3. A DPM-style mediator that gates learning updates.
-4. A strong generic meta-learning controller.
+3. A DPM-style mediator that modulates learning updates.
+4. A strong generic meta-learning baseline.
 
-The comparison should match task exposure, computational budget, model capacity where feasible, and evaluation opportunities. It should assess controlled evidence-response changes, retention and extinction, cross-context transfer, held-out interventional prediction, and model complexity.
-
-The critical question is whether DPM provides predictive or explanatory value beyond a well-matched generic adaptive controller—not whether a system produces human-like emotional labels or expressions.
+The study should match task exposure, computational budget, model capacity where feasible, and evaluation opportunities. It should assess controlled evidence-response changes, retention/extinction, cross-context transfer, held-out interventional prediction, and model complexity.
 
 ## Current status
 
-- [x] Research framework and conceptual claims articulated in the accompanying theory paper.
-- [ ] Concrete update rules specified for each baseline.
-- [ ] Simulation and intervention tests implemented.
-- [ ] Tests and reproducibility checks passing.
-- [ ] Comparative experiments run and results reported.
+- [x] Research overview and theoretical boundaries documented.
+- [x] Initial C++20/CMake project scaffold added.
+- [ ] Formal model update rules specified for each baseline.
+- [ ] Baselines implemented.
+- [ ] Intervention and transfer tests implemented.
+- [ ] Experiments run and results reported.
 
-Unchecked items are planned work, not completed results. No experimental outcomes are claimed here.
+No experimental results are claimed at this stage.
 
 ## Scientific boundaries
 
 - Functional affect is not equated with subjective experience.
 - Reward, prediction error, persistence, and action bias are not individually sufficient evidence of emotion.
-- A successful DPM result would support only the tested causal-functional claim.
-- A generic meta-learning model that matches DPM at equal or lower complexity would weaken the case for DPM's distinct explanatory value.
+- DPM is not claimed to be a new low-level computational primitive.
+- A generic meta-learning model matching DPM at equal or lower complexity would weaken the case for distinct explanatory value.
 - Null results and counterexamples should be reported alongside positive findings.
 
-## Repository roadmap
+## Layout
 
-- `docs/`: formal definitions, assumptions, and study protocol.
-- `src/`: minimal reference implementations, after the update rules are specified.
-- `tests/`: unit tests and intervention-invariant checks.
-- `experiments/`: reproducible baselines and planned evaluations.
-- `configs/`: explicit experiment parameters.
-- `results/`: generated results and analysis, never hand-entered as if experimentally obtained.
+- `src/dpm/`: native core API and implementation.
+- `tests/`: initial C++ test target.
+- `experiments/`: reserved for reproducible experiment drivers.
+- `configs/`: draft protocol configuration.
+- `docs/`: theory notes and limitations.
+- `results/`: generated outputs only; never manually fabricate results.
 
-## Citation
+## Build
 
-A citation file will be added when the paper's public bibliographic record is available. Until then, cite the manuscript directly using the title and author information printed in the submitted version. Do not infer acceptance or publication status from a preprint or submission.
+```bash
+cmake -S . -B build
+cmake --build build
+ctest --test-dir build --output-on-failure
+```
+
+## Citation and status
+
+Cite the manuscript using the title and author details from the submitted version until a public bibliographic record is available. Submission does not imply acceptance or publication.
 
 ## License
 
-No license has been selected yet. Until one is added, all rights are reserved by default; do not assume that the code is available for unrestricted reuse.
+See [LICENSE](LICENSE) for the repository's current terms.
