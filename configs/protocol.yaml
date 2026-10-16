@@ -1,0 +1,24 @@
+# Experiment protocol defaults.
+# These are planned settings, not reported experimental results.
+seed: 2026
+episodes:
+  train: 1000
+  evaluation: 200
+interventions:
+  mediator_clamp:
+    enabled: true
+    values: [low, high]
+splits:
+  contexts:
+    train: []
+    held_out: []
+metrics:
+  - evidence_response_contrast
+  - retention
+  - extinction
+  - cross_context_transfer
+  - held_out_interventional_prediction_error
+  - parameter_count
+notes:
+  - "Do not run until all model update rules and matching rules are explicit."
+  - "Replace symbolic low/high mediator values with numeric intervention levels in the finalized protocol."
