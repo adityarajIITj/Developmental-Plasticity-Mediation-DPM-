@@ -47,12 +47,17 @@ The study should match task exposure, computational budget, model capacity where
 
 - [x] Research overview and theoretical boundaries documented.
 - [x] Initial C++20/CMake project scaffold added.
+- [x] Basic build and scaffold-test entry points added.
 - [ ] Formal model update rules specified for each baseline.
 - [ ] Baselines implemented.
 - [ ] Intervention and transfer tests implemented.
 - [ ] Experiments run and results reported.
 
-No experimental results are claimed at this stage.
+No experimental results are claimed at this stage. The current repository milestone is complete as an initial scaffold; it is not yet a practical model or a validated research implementation.
+
+## Development note
+
+The next phase is intentionally deferred. Building a practical DPM model requires careful specification of the model dynamics, intervention semantics, comparison baselines, and evaluation protocol; it is a substantial research and engineering effort, not a small extension to the paper. Until that work begins, this repository should remain a clean, honest scaffold. No extra modules, placeholder experiments, or claimed results are needed merely to make the repository look larger.
 
 ## Scientific boundaries
 
