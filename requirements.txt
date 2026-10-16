@@ -1,2 +1,0 @@
-# No third-party runtime dependencies are required for the initial protocol files.
-# Add pinned dependencies only when the implementation chooses a concrete stack.
