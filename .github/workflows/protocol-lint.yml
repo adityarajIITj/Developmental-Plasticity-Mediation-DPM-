@@ -1,0 +1,27 @@
+name: protocol-lint
+
+on:
+  push:
+    paths:
+      - "configs/**"
+      - "docs/**"
+      - "tests/**"
+      - ".github/workflows/**"
+  pull_request:
+    paths:
+      - "configs/**"
+      - "docs/**"
+      - "tests/**"
+      - ".github/workflows/**"
+
+jobs:
+  repository-hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for accidental empty placeholder files
+        run: |
+          test -s README.md
+          test -s docs/theory-notes.md
+          test -s tests/TEST_PLAN.md
+          test -s configs/protocol.yaml
