@@ -14,11 +14,19 @@ on:
       - "tests/**"
       - ".github/workflows/cpp.yml"
 
+permissions:
+  contents: read
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Report toolchain versions
+        run: |
+          cmake --version
+          c++ --version
       - name: Configure
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
       - name: Build
