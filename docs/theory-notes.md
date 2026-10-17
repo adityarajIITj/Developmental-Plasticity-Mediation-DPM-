@@ -8,9 +8,14 @@ DPM's target is not merely a persistent state that changes current inference or 
 
 For a selected measurable function (g), define a controlled evidence-response contrast:
 
-`Δ_g(p; e_1,e_0 \mid z,b,c) = E[g(Z_{t+1}) \mid do(P_t=p), do(ε_{t+1}=e_1), z,b,c] - E[g(Z_{t+1}) \mid do(P_t=p), do(ε_{t+1}=e_0), z,b,c].`
+[
+\Delta_g(p; e_1,e_0 \mid z,b,c) =
+\mathbb{E}[g(Z_{t+1}) \mid do(P_t=p), do(\epsilon_{t+1}=e_1), z,b,c]
+-
+\mathbb{E}[g(Z_{t+1}) \mid do(P_t=p), do(\epsilon_{t+1}=e_0), z,b,c].
+]
 
-Evidence-response mediation is present when controlled contrasts differ across mediator settings, for example `Δ_g(p_1) ≠ Δ_g(p_0)`, under a well-defined intervention and appropriate control of off-target paths.
+Evidence-response mediation is present when controlled contrasts differ across mediator settings, for example (\Delta_g(p_1) \ne \Delta_g(p_0)), under a well-defined intervention and appropriate control of off-target paths.
 
 This criterion distinguishes DPM from a restricted persistence-only model; it does not distinguish DPM from every possible meta-learning controller.
 
