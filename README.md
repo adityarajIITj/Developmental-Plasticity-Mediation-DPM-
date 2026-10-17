@@ -84,6 +84,12 @@ The next phase is intentionally deferred. Building a practical DPM model require
 - [Results and reporting policy](docs/results-policy.md): provenance and reporting requirements.
 - [Current limitations](docs/limitations.md): implementation gaps and inference boundaries.
 - [Theory notes](docs/theory-notes.md): operational distinction and model-comparison rationale.
+- [Notation reference](docs/notation.md): symbols and their current implementation status.
+- [Baseline comparison](docs/baseline-comparison.md): matching requirements for fair comparisons.
+- [Intervention design](docs/intervention-design.md): mediator-clamp semantics to define before implementation.
+- [Reproducibility checklist](docs/reproducibility.md): provenance requirements for future runs.
+- [Testing scope](docs/testing-scope.md): software checks versus scientific evaluation.
+- [Research roadmap](docs/roadmap.md): staged work and explicit current status.
 
 ## Build
 
