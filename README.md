@@ -76,6 +76,15 @@ The next phase is intentionally deferred. Building a practical DPM model require
 - `docs/`: theory notes and limitations.
 - `results/`: generated outputs only; never manually fabricate results.
 
+## Developer documentation
+
+- [Build and test guide](docs/build-and-test.md): local prerequisites and commands.
+- [Core API contract](docs/core-api.md): what the current native interface does—and does not—promise.
+- [Experiment configuration conventions](docs/experiment-config.md): rules for future reproducible runs.
+- [Results and reporting policy](docs/results-policy.md): provenance and reporting requirements.
+- [Current limitations](docs/limitations.md): implementation gaps and inference boundaries.
+- [Theory notes](docs/theory-notes.md): operational distinction and model-comparison rationale.
+
 ## Build
 
 ```bash
