@@ -10,9 +10,22 @@ add_library(dpm_core
 )
 target_include_directories(dpm_core PUBLIC src)
 
+if(MSVC)
+    target_compile_options(dpm_core PRIVATE /W4 /permissive-)
+else()
+    target_compile_options(dpm_core PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+
 include(CTest)
 if(BUILD_TESTING)
     add_executable(dpm_scaffold_test tests/test_scaffold.cpp)
     target_link_libraries(dpm_scaffold_test PRIVATE dpm_core)
+
+    if(MSVC)
+        target_compile_options(dpm_scaffold_test PRIVATE /W4 /permissive-)
+    else()
+        target_compile_options(dpm_scaffold_test PRIVATE -Wall -Wextra -Wpedantic)
+    endif()
+
     add_test(NAME dpm_scaffold_test COMMAND dpm_scaffold_test)
 endif()
