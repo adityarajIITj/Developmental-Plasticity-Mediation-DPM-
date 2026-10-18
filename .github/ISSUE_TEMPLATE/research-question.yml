@@ -1,0 +1,26 @@
+name: Research question
+description: Propose a testable question about DPM or its evaluation
+title: "[Research]: "
+labels: ["research"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Research question
+      description: State one question that can be answered or falsified.
+    validations:
+      required: true
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: Hypothesis and alternatives
+      description: Include plausible competing explanations.
+    validations:
+      required: true
+  - type: textarea
+    id: test
+    attributes:
+      label: Proposed discriminating test
+      description: Identify observations or interventions that distinguish the alternatives.
+    validations:
+      required: true
