@@ -90,6 +90,23 @@ The next phase is intentionally deferred. Building a practical DPM model require
 - [Reproducibility checklist](docs/reproducibility.md): provenance requirements for future runs.
 - [Testing scope](docs/testing-scope.md): software checks versus scientific evaluation.
 - [Research roadmap](docs/roadmap.md): staged work and explicit current status.
+- [Decision log](docs/decision-log.md): dated decisions and their consequences.
+- [Model specification template](docs/model-spec-template.md): required fields before implementing a model variant.
+- [Metric definitions](docs/metric-definitions.md): evaluation metrics and definitions still to finalize.
+- [Data management](docs/data-management.md): provenance and handling rules for future runs.
+- [Change control](docs/change-control.md): how changes to model semantics are documented.
+- [Threats to validity](docs/threats-to-validity.md): construct, internal, comparative, external, and statistical risks.
+- [Release checklist](docs/release-checklist.md): readiness checks for code and claims.
+- [Experiment record template](docs/experiment-record-template.md): run provenance and outcomes.
+- [Terminology](docs/terminology.md): consistent definitions for key terms.
+- [Implementation boundaries](docs/implementation-boundaries.md): infrastructure versus model and evaluation code.
+- [Configuration review](docs/configuration-review.md): checks before a protocol becomes executable.
+- [Adversarial review questions](docs/review-questions.md): challenge alternative explanations before interpreting results.
+- [Benchmark report template](docs/benchmark-report-template.md): structured reporting for future comparisons.
+- [CI scope](docs/ci-scope.md): what automated checks do and do not establish.
+- [Parameter accounting](docs/parameter-accounting.md): consistent complexity reporting.
+- [Null results](docs/null-results.md): transparent reporting of negative and inconclusive outcomes.
+- [Research claim ledger](docs/research-claim-ledger.md): claims separated from their current evidence.
 
 ## Build
 
