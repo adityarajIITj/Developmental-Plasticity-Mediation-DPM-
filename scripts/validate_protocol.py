@@ -20,6 +20,7 @@ REQUIRED_TOP_LEVEL = {
     "metrics",
     "notes",
 }
+ALLOWED_TOP_LEVEL = REQUIRED_TOP_LEVEL
 
 
 def fail(message: str) -> None:
@@ -39,8 +40,11 @@ def main() -> None:
         fail("top-level YAML value must be a mapping")
 
     missing = REQUIRED_TOP_LEVEL - config.keys()
+    unexpected = config.keys() - ALLOWED_TOP_LEVEL
     if missing:
         fail(f"missing top-level keys: {', '.join(sorted(missing))}")
+    if unexpected:
+        fail(f"unknown top-level keys: {', '.join(sorted(unexpected))}")
 
     seed = config["seed"]
     if isinstance(seed, bool) or not isinstance(seed, int):
@@ -49,6 +53,8 @@ def main() -> None:
     episodes = config["episodes"]
     if not isinstance(episodes, dict):
         fail("episodes must be a mapping")
+    if set(episodes) != {"train", "evaluation"}:
+        fail("episodes must contain exactly train and evaluation")
     for key in ("train", "evaluation"):
         value = episodes.get(key)
         if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
@@ -56,8 +62,10 @@ def main() -> None:
 
     interventions = config["interventions"]
     clamp = interventions.get("mediator_clamp") if isinstance(interventions, dict) else None
-    if not isinstance(clamp, dict):
-        fail("interventions.mediator_clamp must be a mapping")
+    if not isinstance(interventions, dict) or set(interventions) != {"mediator_clamp"}:
+        fail("interventions must contain only mediator_clamp")
+    if not isinstance(clamp, dict) or set(clamp) != {"enabled", "values"}:
+        fail("interventions.mediator_clamp must contain exactly enabled and values")
     if not isinstance(clamp.get("enabled"), bool):
         fail("interventions.mediator_clamp.enabled must be boolean")
     values = clamp.get("values")
@@ -68,8 +76,10 @@ def main() -> None:
 
     splits = config["splits"]
     contexts = splits.get("contexts") if isinstance(splits, dict) else None
-    if not isinstance(contexts, dict):
-        fail("splits.contexts must be a mapping")
+    if not isinstance(splits, dict) or set(splits) != {"contexts"}:
+        fail("splits must contain only contexts")
+    if not isinstance(contexts, dict) or set(contexts) != {"train", "held_out"}:
+        fail("splits.contexts must contain exactly train and held_out")
     train = contexts.get("train")
     held_out = contexts.get("held_out")
     if not isinstance(train, list) or not isinstance(held_out, list):
