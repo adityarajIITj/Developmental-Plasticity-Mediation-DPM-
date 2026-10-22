@@ -106,6 +106,48 @@ typo_metrics: [retention]
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("cannot read valid YAML", result.stderr)
 
+    def test_rejects_boolean_seed(self):
+        invalid = """\\
+seed: true
+episodes:
+  train: 10
+  evaluation: 5
+interventions:
+  mediator_clamp:
+    enabled: true
+    values: [low, high]
+splits:
+  contexts:
+    train: []
+    held_out: []
+metrics: [retention]
+notes: []
+"""
+        result = self.run_validator(invalid)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("seed must be an integer", result.stderr)
+
+    def test_rejects_duplicate_metrics(self):
+        invalid = """\\
+seed: 7
+episodes:
+  train: 10
+  evaluation: 5
+interventions:
+  mediator_clamp:
+    enabled: true
+    values: [low, high]
+splits:
+  contexts:
+    train: []
+    held_out: []
+metrics: [retention, retention]
+notes: []
+"""
+        result = self.run_validator(invalid)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("metric names must be unique", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()
