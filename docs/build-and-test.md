@@ -23,3 +23,16 @@ For a clean reconfiguration, remove the generated `build/` directory and repeat 
 The current test checks only that the scaffold API is available and returns its expected project-name string. It does not test DPM dynamics, interventions, learning, affect, or the theory's propositions.
 
 A passing build establishes basic compilation and test execution only.
+
+
+## Repository validation
+
+Install the development dependency before running the protocol checks:
+
+```sh
+python -m pip install -r requirements-dev.txt
+make protocol-check
+make protocol-test
+```
+
+The `Makefile` provides shortcuts for the same protocol checks and the CMake/CTest path. If Make is unavailable, run the underlying Python and CMake commands directly. Protocol validation checks structural invariants only; it does not certify scientific readiness.
