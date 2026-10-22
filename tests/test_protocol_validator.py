@@ -80,7 +80,7 @@ notes: []
         self.assertIn("positive integer", result.stderr)
 
     def test_rejects_unknown_top_level_keys(self):
-        invalid = """\\
+        invalid = """
 seed: 7
 episodes:
   train: 10
@@ -107,7 +107,7 @@ typo_metrics: [retention]
         self.assertIn("cannot read valid YAML", result.stderr)
 
     def test_rejects_boolean_seed(self):
-        invalid = """\\
+        invalid = """
 seed: true
 episodes:
   train: 10
@@ -128,7 +128,7 @@ notes: []
         self.assertIn("seed must be an integer", result.stderr)
 
     def test_rejects_duplicate_metrics(self):
-        invalid = """\\
+        invalid = """
 seed: 7
 episodes:
   train: 10
@@ -149,7 +149,7 @@ notes: []
         self.assertIn("metric names must be unique", result.stderr)
 
     def test_rejects_duplicate_context_within_split(self):
-        invalid = """\\
+        invalid = """
 seed: 7
 episodes:
   train: 10
