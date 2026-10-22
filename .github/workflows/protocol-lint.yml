@@ -32,8 +32,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install protocol validator dependency
-        run: python -m pip install --disable-pip-version-check PyYAML
+      - name: Install development dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-dev.txt
       - name: Validate draft protocol structure
         run: python scripts/validate_protocol.py configs/protocol.yaml
       - name: Test protocol validator
