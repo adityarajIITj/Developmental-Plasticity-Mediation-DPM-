@@ -1,0 +1,2 @@
+# Dependencies for repository validation and protocol tests.
+PyYAML>=6.0,<7.0
