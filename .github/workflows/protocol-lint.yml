@@ -6,22 +6,43 @@ on:
       - "configs/**"
       - "docs/**"
       - "tests/**"
+      - "scripts/**"
+      - "README.md"
+      - "CONTRIBUTING.md"
       - ".github/workflows/**"
   pull_request:
     paths:
       - "configs/**"
       - "docs/**"
       - "tests/**"
+      - "scripts/**"
+      - "README.md"
+      - "CONTRIBUTING.md"
       - ".github/workflows/**"
+
+permissions:
+  contents: read
 
 jobs:
   repository-hygiene:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Check for accidental empty placeholder files
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install protocol validator dependency
+        run: python -m pip install --disable-pip-version-check PyYAML
+      - name: Validate draft protocol structure
+        run: python scripts/validate_protocol.py configs/protocol.yaml
+      - name: Test protocol validator
+        run: python -m unittest discover -s tests -p "test_protocol_validator.py" -v
+      - name: Check required research documents
         run: |
           test -s README.md
+          test -s CONTRIBUTING.md
           test -s docs/theory-notes.md
+          test -s docs/architecture.md
           test -s tests/TEST_PLAN.md
           test -s configs/protocol.yaml
