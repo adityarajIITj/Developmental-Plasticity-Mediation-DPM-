@@ -89,6 +89,7 @@ Useful guides:
 
 - [Build and test](docs/build-and-test.md)
 - [Repository architecture](docs/architecture.md)
+- [Protocol validator](docs/protocol-validator.md): structural checks and their limits.
 - [Core API contract](docs/core-api.md)
 - [Theory notes](docs/theory-notes.md)
 - [Notation reference](docs/notation.md)
