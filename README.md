@@ -1,125 +1,124 @@
 # Developmental Plasticity Mediation (DPM)
 
-**Research scaffold for a causal-explanatory framework of functional affect in artificial systems.**
+**An open research scaffold for testing a causal-explanatory account of functional affect in artificial systems.**
 
-DPM proposes studying whether a history-conditioned mediator changes how later evidence updates learned significance. The repository is currently an initial project scaffold; it does not yet contain a complete implementation or experimental results.
+DPM asks whether a history-conditioned internal mediator can change how later evidence updates learned significance. The repository is an early C++20 scaffold for making that question precise and testable. It is **not yet a working affect model**, and it contains no empirical results.
+
+[Research status](#status) · [Build](#build-and-test) · [Scientific question](#research-question) · [Contributing](CONTRIBUTING.md)
+
+---
 
 ## Research question
 
-Can a history-conditioned mediator explain and predict changes in how an artificial system learns from later evidence, beyond persistent-state adaptive control and strong generic meta-learning baselines?
+Can a history-conditioned mediator explain or predict how an artificial system learns from later evidence, beyond what is explained by persistent-state adaptive control or a strong generic meta-learning system?
+
+The intended distinction is causal: the proposed mediator should alter the *evidence-to-learning relationship*, not merely persist and bias the system's current inference or action. This is a hypothesis to test, not a result established by the repository.
 
 ## Conceptual schema
 
-`P_{t+1} = H(P_t, J_{t+1}, B_t, Z_t, C_t)`
+The current theoretical sketch is:
 
-`Z_{t+1} = F_{P_t}(Z_t, \epsilon_{t+1}, B_t, C_t)`
+```text
+P[t+1] = H(P[t], J[t+1], B[t], Z[t], C[t])
+Z[t+1] = F_{P[t]}(Z[t], epsilon[t+1], B[t], C[t])
+A[t]   ~ pi(. | B[t], Z[t], P[t], C[t])
+```
 
-`A_t \sim \pi(\cdot \mid B_t, Z_t, P_t, C_t)`
+| Symbol | Intended role |
+|---|---|
+| `P` | History-conditioned plasticity/development mediator |
+| `Z` | Learned significance |
+| `B` | Explicit belief |
+| `J` | Episode/history input |
+| `epsilon` | Learning evidence; not assumed to be a temporal-difference error |
+| `C` | Context |
+| `A` | Action |
 
-- `P`: history-conditioned plasticity/development mediator.
-- `Z`: learned significance.
-- `B`: explicit belief.
-- `J`: episode/history input.
-- `ε`: learning evidence; not assumed to be a temporal-difference error.
-- `C`: context.
-- `A`: action.
+These equations are a **conceptual schema**, not a complete algorithm. They do not specify state spaces, update rules, parameterization, or intervention mechanics. Those choices must be written down before an implementation can be evaluated scientifically.
 
-These equations are a conceptual schema, not an executable algorithm. Implementation details must be specified before experiments are treated as confirmatory.
+## Proposed empirical test
 
-## Initial technology choices
+The planned *Plasticity Clamp and Transfer Test* is intended to compare:
 
-- **C++20** for the native research core.
-- **CMake** for portable builds.
-- **CTest** for the initial native test target.
-- Python may be added later for statistical analysis and visualization; it is not the core engine.
-
-## Proposed study
-
-The planned Plasticity Clamp and Transfer Test compares:
 1. A persistent-state adaptive controller.
 2. An evaluative-decoupling variant.
 3. A DPM-style mediator that modulates learning updates.
 4. A strong generic meta-learning baseline.
 
-The study should match task exposure, computational budget, model capacity where feasible, and evaluation opportunities. It should assess controlled evidence-response changes, retention/extinction, cross-context transfer, held-out interventional prediction, and model complexity.
+A credible comparison needs explicit update equations, comparable information and data exposure, a defensible capacity/tuning budget, controlled mediator interventions, held-out contexts, and predeclared metrics. The proposed outcomes include evidence-response contrasts, retention/extinction, cross-context transfer, held-out interventional prediction error, and model complexity.
 
-## Current status
+A generic meta-learning baseline that matches DPM at equal or lower complexity would weaken the claim that DPM adds distinct explanatory value.
 
-- [x] Research overview and theoretical boundaries documented.
-- [x] Initial C++20/CMake project scaffold added.
-- [x] Basic build and scaffold-test entry points added.
-- [ ] Formal model update rules specified for each baseline.
-- [ ] Baselines implemented.
-- [ ] Intervention and transfer tests implemented.
-- [ ] Experiments run and results reported.
+## Status
 
-No experimental results are claimed at this stage. The current repository milestone is complete as an initial scaffold; it is not yet a practical model or a validated research implementation.
+**Current milestone: repository scaffold and research-planning documentation.**
 
-## Development note
+- [x] Initial C++20/CMake project and CTest entry point.
+- [x] Basic scaffold test and native build workflow.
+- [x] Draft protocol configuration and documentation of scientific boundaries.
+- [x] Planning guides for model specification, interventions, metrics, and reproducibility.
+- [ ] Specify complete update rules for every model variant.
+- [ ] Finalize the intervention protocol and metric estimators.
+- [ ] Implement model variants and a configuration-consuming experiment runner.
+- [ ] Add model-level, intervention, and reproducibility tests.
+- [ ] Run matched experiments and report results.
 
-The next phase is intentionally deferred. Building a practical DPM model requires careful specification of the model dynamics, intervention semantics, comparison baselines, and evaluation protocol; it is a substantial research and engineering effort, not a small extension to the paper. Until that work begins, this repository should remain a clean, honest scaffold. No extra modules, placeholder experiments, or claimed results are needed merely to make the repository look larger.
+The checked items describe repository artifacts, not validation of the theory. No empirical results are claimed. A successful build or scaffold test establishes only that the tested software path works.
 
 ## Scientific boundaries
 
-- Functional affect is not equated with subjective experience.
-- Reward, prediction error, persistence, and action bias are not individually sufficient evidence of emotion.
-- DPM is not claimed to be a new low-level computational primitive.
-- A generic meta-learning model matching DPM at equal or lower complexity would weaken the case for distinct explanatory value.
-- Null results and counterexamples should be reported alongside positive findings.
+- Functional organization is not evidence by itself of subjective feeling or phenomenal valence.
+- Reward, prediction error, persistence, and action bias alone are insufficient to establish emotion.
+- DPM is not claimed to introduce a new low-level computational primitive.
+- Generic adaptive control and meta-learning are serious competing explanations, not straw-man baselines.
+- Null results, failed runs, alternative explanations, and limitations should be reported alongside positive findings.
 
-## Layout
+## Repository map
 
-- `src/dpm/`: native core API and implementation.
-- `tests/`: initial C++ test target.
-- `experiments/`: reserved for reproducible experiment drivers.
-- `configs/`: draft protocol configuration.
-- `docs/`: theory notes and limitations.
-- `results/`: generated outputs only; never manually fabricate results.
+```text
+src/dpm/                  Minimal native C++ scaffold
+tests/                    Current test and planned test requirements
+configs/protocol.yaml     Draft settings; not consumed by a runner yet
+docs/                     Theory, protocol, and research-governance notes
+scripts/                  Repository validation utilities
+.github/workflows/        Build/test and repository checks
+results/                  Reserved for generated outputs; no fabricated results
+```
 
-## Developer documentation
+Useful guides:
 
-- [Build and test guide](docs/build-and-test.md): local prerequisites and commands.
-- [Core API contract](docs/core-api.md): what the current native interface does—and does not—promise.
-- [Experiment configuration conventions](docs/experiment-config.md): rules for future reproducible runs.
-- [Results and reporting policy](docs/results-policy.md): provenance and reporting requirements.
-- [Current limitations](docs/limitations.md): implementation gaps and inference boundaries.
-- [Theory notes](docs/theory-notes.md): operational distinction and model-comparison rationale.
-- [Notation reference](docs/notation.md): symbols and their current implementation status.
-- [Baseline comparison](docs/baseline-comparison.md): matching requirements for fair comparisons.
-- [Intervention design](docs/intervention-design.md): mediator-clamp semantics to define before implementation.
-- [Reproducibility checklist](docs/reproducibility.md): provenance requirements for future runs.
-- [Testing scope](docs/testing-scope.md): software checks versus scientific evaluation.
-- [Research roadmap](docs/roadmap.md): staged work and explicit current status.
-- [Decision log](docs/decision-log.md): dated decisions and their consequences.
-- [Model specification template](docs/model-spec-template.md): required fields before implementing a model variant.
-- [Metric definitions](docs/metric-definitions.md): evaluation metrics and definitions still to finalize.
-- [Data management](docs/data-management.md): provenance and handling rules for future runs.
-- [Change control](docs/change-control.md): how changes to model semantics are documented.
-- [Threats to validity](docs/threats-to-validity.md): construct, internal, comparative, external, and statistical risks.
-- [Release checklist](docs/release-checklist.md): readiness checks for code and claims.
-- [Experiment record template](docs/experiment-record-template.md): run provenance and outcomes.
-- [Terminology](docs/terminology.md): consistent definitions for key terms.
-- [Implementation boundaries](docs/implementation-boundaries.md): infrastructure versus model and evaluation code.
-- [Configuration review](docs/configuration-review.md): checks before a protocol becomes executable.
-- [Adversarial review questions](docs/review-questions.md): challenge alternative explanations before interpreting results.
-- [Benchmark report template](docs/benchmark-report-template.md): structured reporting for future comparisons.
-- [CI scope](docs/ci-scope.md): what automated checks do and do not establish.
-- [Parameter accounting](docs/parameter-accounting.md): consistent complexity reporting.
-- [Null results](docs/null-results.md): transparent reporting of negative and inconclusive outcomes.
-- [Research claim ledger](docs/research-claim-ledger.md): claims separated from their current evidence.
+- [Build and test](docs/build-and-test.md)
+- [Core API contract](docs/core-api.md)
+- [Theory notes](docs/theory-notes.md)
+- [Notation reference](docs/notation.md)
+- [Model specification template](docs/model-spec-template.md)
+- [Intervention design](docs/intervention-design.md)
+- [Metric definitions](docs/metric-definitions.md)
+- [Baseline comparison](docs/baseline-comparison.md)
+- [Reproducibility checklist](docs/reproducibility.md)
+- [Threats to validity](docs/threats-to-validity.md)
+- [Research roadmap](docs/roadmap.md)
+- [Current limitations](docs/limitations.md)
+- [Research claim ledger](docs/research-claim-ledger.md)
 
-## Build
+## Build and test
 
-```bash
-cmake -S . -B build
-cmake --build build
+Requirements: CMake 3.20+, a C++20 compiler, and a supported build tool.
+
+```sh
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --parallel
 ctest --test-dir build --output-on-failure
 ```
 
-## Citation and status
+The current CTest target checks the scaffold API only. It does not exercise learning dynamics, mediator interventions, affect, or any scientific proposition. See [the testing-scope note](docs/testing-scope.md).
 
-Cite the manuscript using the title and author details from the submitted version until a public bibliographic record is available. Submission does not imply acceptance or publication.
+## Contributing
 
-## License
+See [CONTRIBUTING.md](CONTRIBUTING.md). Changes to model semantics should include a specification, tests, and an explanation of how previous results remain comparable.
 
-See [LICENSE](LICENSE) for the repository's current terms.
+## Citation and license
+
+The manuscript is titled *Developmental Plasticity Mediation: A Causal-Explanatory Framework for Functional Affect in Artificial Systems*. Use the manuscript's submitted bibliographic details until a public record is available; submission does not imply acceptance or publication.
+
+See [CITATION.cff](CITATION.cff) and [LICENSE](LICENSE) for citation metadata and repository terms.
