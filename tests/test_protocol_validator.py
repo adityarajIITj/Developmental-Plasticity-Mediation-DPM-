@@ -79,6 +79,33 @@ notes: []
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("positive integer", result.stderr)
 
+    def test_rejects_unknown_top_level_keys(self):
+        invalid = """\\
+seed: 7
+episodes:
+  train: 10
+  evaluation: 5
+interventions:
+  mediator_clamp:
+    enabled: true
+    values: [low, high]
+splits:
+  contexts:
+    train: []
+    held_out: []
+metrics: [retention]
+notes: []
+typo_metrics: [retention]
+"""
+        result = self.run_validator(invalid)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("unknown top-level keys", result.stderr)
+
+    def test_rejects_malformed_yaml(self):
+        result = self.run_validator("seed: [unterminated")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("cannot read valid YAML", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()
