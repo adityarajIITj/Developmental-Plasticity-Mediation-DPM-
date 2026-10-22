@@ -84,8 +84,10 @@ def main() -> None:
     held_out = contexts.get("held_out")
     if not isinstance(train, list) or not isinstance(held_out, list):
         fail("splits.contexts.train and held_out must be lists")
-    if not all(isinstance(item, str) and item for item in train + held_out):
+    if not all(isinstance(item, str) and item.strip() for item in train + held_out):
         fail("context identifiers must be non-empty strings")
+    if len(set(train)) != len(train) or len(set(held_out)) != len(held_out):
+        fail("context identifiers must be unique within each split")
     overlap = set(train) & set(held_out)
     if overlap:
         fail(f"train and held-out contexts overlap: {', '.join(sorted(overlap))}")
