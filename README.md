@@ -88,6 +88,7 @@ results/                  Reserved for generated outputs; no fabricated results
 Useful guides:
 
 - [Build and test](docs/build-and-test.md)
+- [Repository architecture](docs/architecture.md)
 - [Core API contract](docs/core-api.md)
 - [Theory notes](docs/theory-notes.md)
 - [Notation reference](docs/notation.md)
@@ -99,6 +100,7 @@ Useful guides:
 - [Threats to validity](docs/threats-to-validity.md)
 - [Research roadmap](docs/roadmap.md)
 - [Current limitations](docs/limitations.md)
+- [Contributing](CONTRIBUTING.md): review standards for code and research changes.
 - [Research claim ledger](docs/research-claim-ledger.md)
 
 ## Build and test
