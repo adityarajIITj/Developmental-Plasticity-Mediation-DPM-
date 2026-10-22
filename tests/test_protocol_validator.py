@@ -148,6 +148,27 @@ notes: []
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("metric names must be unique", result.stderr)
 
+    def test_rejects_duplicate_context_within_split(self):
+        invalid = """\\
+seed: 7
+episodes:
+  train: 10
+  evaluation: 5
+interventions:
+  mediator_clamp:
+    enabled: true
+    values: [low, high]
+splits:
+  contexts:
+    train: [room_a, room_a]
+    held_out: [room_b]
+metrics: [retention]
+notes: []
+"""
+        result = self.run_validator(invalid)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("unique within each split", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()
