@@ -255,6 +255,48 @@ notes: []
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("values must be unique", result.stderr)
 
+    def test_rejects_empty_metrics(self):
+        invalid = """\
+seed: 7
+episodes:
+  train: 10
+  evaluation: 5
+interventions:
+  mediator_clamp:
+    enabled: true
+    values: [low, high]
+splits:
+  contexts:
+    train: []
+    held_out: []
+metrics: []
+notes: []
+"""
+        result = self.run_validator(invalid)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("non-empty list", result.stderr)
+
+    def test_rejects_non_string_notes(self):
+        invalid = """\
+seed: 7
+episodes:
+  train: 10
+  evaluation: 5
+interventions:
+  mediator_clamp:
+    enabled: true
+    values: [low, high]
+splits:
+  contexts:
+    train: []
+    held_out: []
+metrics: [retention]
+notes: [42]
+"""
+        result = self.run_validator(invalid)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("list of strings", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()
