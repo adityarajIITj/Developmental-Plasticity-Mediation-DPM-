@@ -12,6 +12,31 @@ from pathlib import Path
 import yaml
 
 
+class UniqueKeyLoader(yaml.SafeLoader):
+    """Safe YAML loader that rejects duplicate mapping keys."""
+
+
+def _construct_unique_mapping(loader, node, deep=False):
+    loader.flatten_mapping(node)
+    mapping = {}
+    for key_node, value_node in node.value:
+        key = loader.construct_object(key_node, deep=deep)
+        try:
+            duplicate = key in mapping
+        except TypeError:
+            fail("mapping keys must be hashable scalars")
+        if duplicate:
+            fail(f"duplicate YAML mapping key: {key!r}")
+        mapping[key] = loader.construct_object(value_node, deep=deep)
+    return mapping
+
+
+UniqueKeyLoader.add_constructor(
+    yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
+    _construct_unique_mapping,
+)
+
+
 REQUIRED_TOP_LEVEL = {
     "seed",
     "episodes",
@@ -32,7 +57,7 @@ def main() -> None:
     path = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("configs/protocol.yaml")
     try:
         with path.open("r", encoding="utf-8") as stream:
-            config = yaml.safe_load(stream)
+            config = yaml.load(stream, Loader=UniqueKeyLoader)
     except (OSError, yaml.YAMLError) as exc:
         fail(f"cannot read valid YAML from {path}: {exc}")
 
@@ -71,7 +96,12 @@ def main() -> None:
     values = clamp.get("values")
     if not isinstance(values, list) or len(values) < 2:
         fail("interventions.mediator_clamp.values must contain at least two levels")
-    if len({str(value) for value in values}) != len(values):
+    if not all(
+        isinstance(value, (str, int, float)) and not isinstance(value, bool)
+        for value in values
+    ):
+        fail("mediator clamp values must be non-null scalar strings or numbers")
+    if len({(type(value).__name__, value) for value in values}) != len(values):
         fail("mediator clamp values must be unique")
 
     splits = config["splits"]
