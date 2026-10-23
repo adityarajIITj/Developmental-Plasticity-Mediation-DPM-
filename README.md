@@ -116,6 +116,16 @@ ctest --test-dir build --output-on-failure
 
 The current CTest target checks the scaffold API only. It does not exercise learning dynamics, mediator interventions, affect, or any scientific proposition. See [the testing-scope note](docs/testing-scope.md).
 
+For the draft protocol's structural checks, install the development dependency and run:
+
+```sh
+python -m pip install -r requirements-dev.txt
+make protocol-check
+make protocol-test
+```
+
+These checks reject malformed configuration and common structural mistakes; they do not determine whether the proposed experimental design is scientifically adequate. See the [protocol validator guide](docs/protocol-validator.md).
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Changes to model semantics should include a specification, tests, and an explanation of how previous results remain comparable.
