@@ -8,3 +8,10 @@ __pycache__/
 .DS_Store
 .env
 results/generated/
+# CMake and native build output
+/build/
+/cmake-build-*/
+
+# Local editor and tooling state
+.vscode/
+.idea/
