@@ -212,6 +212,49 @@ notes: []
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("non-null scalar", result.stderr)
 
+    def test_rejects_unknown_nested_episode_key(self):
+        invalid = """\
+seed: 7
+episodes:
+  train: 10
+  evaluation: 5
+  evalution: 5
+interventions:
+  mediator_clamp:
+    enabled: true
+    values: [low, high]
+splits:
+  contexts:
+    train: []
+    held_out: []
+metrics: [retention]
+notes: []
+"""
+        result = self.run_validator(invalid)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("exactly train and evaluation", result.stderr)
+
+    def test_rejects_duplicate_intervention_levels(self):
+        invalid = """\
+seed: 7
+episodes:
+  train: 10
+  evaluation: 5
+interventions:
+  mediator_clamp:
+    enabled: true
+    values: [low, low]
+splits:
+  contexts:
+    train: []
+    held_out: []
+metrics: [retention]
+notes: []
+"""
+        result = self.run_validator(invalid)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("values must be unique", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()
