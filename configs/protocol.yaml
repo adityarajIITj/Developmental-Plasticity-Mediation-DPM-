@@ -10,6 +10,7 @@ interventions:
     values: [low, high]
 splits:
   contexts:
+    # Intentionally empty until task/context identifiers and the split rule are fixed.
     train: []
     held_out: []
 metrics:
