@@ -169,6 +169,49 @@ notes: []
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("unique within each split", result.stderr)
 
+    def test_rejects_duplicate_yaml_mapping_keys(self):
+        invalid = """\
+seed: 7
+seed: 8
+episodes:
+  train: 10
+  evaluation: 5
+interventions:
+  mediator_clamp:
+    enabled: true
+    values: [low, high]
+splits:
+  contexts:
+    train: []
+    held_out: []
+metrics: [retention]
+notes: []
+"""
+        result = self.run_validator(invalid)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("duplicate YAML mapping key", result.stderr)
+
+    def test_rejects_null_mediator_level(self):
+        invalid = """\
+seed: 7
+episodes:
+  train: 10
+  evaluation: 5
+interventions:
+  mediator_clamp:
+    enabled: true
+    values: [low, null]
+splits:
+  contexts:
+    train: []
+    held_out: []
+metrics: [retention]
+notes: []
+"""
+        result = self.run_validator(invalid)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("non-null scalar", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()
