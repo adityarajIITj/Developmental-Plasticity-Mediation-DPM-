@@ -36,6 +36,10 @@ A[t]   ~ pi(. | B[t], Z[t], P[t], C[t])
 
 These equations are a **conceptual schema**, not a complete algorithm. They do not specify state spaces, update rules, parameterization, or intervention mechanics. Those choices must be written down before an implementation can be evaluated scientifically.
 
+## Executable Python reference
+
+A small scalar reference implementation now makes the evidence-response idea executable for unit testing. It is deliberately narrower than the full theory and is **not** an affect model or an empirical result. See [Python reference implementation](docs/python-reference.md) and the `dpm_reference/` package.
+
 ## Proposed empirical test
 
 The planned *Plasticity Clamp and Transfer Test* is intended to compare:
