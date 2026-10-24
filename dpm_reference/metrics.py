@@ -7,7 +7,6 @@ from collections.abc import Callable
 def evidence_response_contrast(
     update: Callable[[float], float],
     *,
-    initial_significance: float,
     evidence_low: float,
     evidence_high: float,
 ) -> float:
@@ -21,7 +20,7 @@ def evidence_response_contrast(
     low = update(evidence_low)
     high = update(evidence_high)
     if not all(isinstance(x, (int, float)) for x in (
-        initial_significance, evidence_low, evidence_high, low, high
+        evidence_low, evidence_high, low, high
     )):
         raise ValueError("metric inputs and outputs must be numeric")
     return float(high - low)
