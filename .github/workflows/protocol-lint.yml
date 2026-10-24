@@ -37,7 +37,7 @@ jobs:
       - name: Validate draft protocol structure
         run: python scripts/validate_protocol.py configs/protocol.yaml
       - name: Test protocol validator
-        run: python -m unittest discover -s tests -p "test_protocol_validator.py" -v
+        run: python -m unittest discover -s tests -p "test_*.py" -v
       - name: Check required research documents
         run: |
           test -s README.md
